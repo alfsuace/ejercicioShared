@@ -8,7 +8,7 @@ class OpenedXmlLocalDataSource (private val context: Context){
     private val sharedPreferences = context.getSharedPreferences("opened.txt", MODE_PRIVATE)
 
     fun getOpened(): Int {
-        return sharedPreferences.getInt("open", 0)
+        return sharedPreferences.getInt("open", 1)
     }
 
     fun setPlusOne(){
