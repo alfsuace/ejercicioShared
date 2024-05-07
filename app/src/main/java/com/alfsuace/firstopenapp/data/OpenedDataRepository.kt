@@ -6,14 +6,13 @@ import com.alfsuace.firstopenapp.domain.OpenedRepository
 class OpenedDataRepository(
     private val openedXmlLocalDataSource: OpenedXmlLocalDataSource
 ) : OpenedRepository {
-
-    override fun getOpened(): Boolean {
-        val result = openedXmlLocalDataSource.getOpened()
-        return if (!result) {
-            openedXmlLocalDataSource.setOpened()
-            return result
+    override fun getOpenedMoreThanFive(): Boolean {
+        val opened = openedXmlLocalDataSource
+        return if (opened.getOpened() < 5) {
+            opened.setPlusOne()
+            return false
         } else {
-            return result
+            return true
         }
     }
 

@@ -3,18 +3,17 @@ package com.alfsuace.firstopenapp.data.local
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import androidx.core.content.edit
-import com.google.gson.Gson
 
 class OpenedXmlLocalDataSource (private val context: Context){
     private val sharedPreferences = context.getSharedPreferences("opened.txt", MODE_PRIVATE)
 
-    fun getOpened(): Boolean {
-        return sharedPreferences.getBoolean("open", false)
+    fun getOpened(): Int {
+        return sharedPreferences.getInt("open", 0)
     }
 
-    fun setOpened(){
+    fun setPlusOne(){
         sharedPreferences.edit(){
-            putBoolean("open", true)
+            putInt("open", getOpened()+1)
             apply()
         }
     }
