@@ -2,7 +2,7 @@ package com.alfsuace.firstopenapp.domain
 
 class GetOpenedUseCase(private val openedRepository: OpenedRepository) {
 
-    operator fun invoke():Boolean{
-        return openedRepository.getOpenedMoreThanFive()
+    operator fun invoke():Int{
+        return openedRepository.getOpened()
     }
 }

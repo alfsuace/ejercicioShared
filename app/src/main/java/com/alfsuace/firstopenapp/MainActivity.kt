@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             OpenedXmlLocalDataSource(applicationContext)
         )
         val isOpen= GetOpenedUseCase(openedRepository).invoke()
-        updateVisibility(isOpen)
+        updateVisibility(isOpen<5)
     }
     private fun updateVisibility(isOpen: Boolean) {
         val visualizerTextView = findViewById<TextView>(R.id.visualizer)
