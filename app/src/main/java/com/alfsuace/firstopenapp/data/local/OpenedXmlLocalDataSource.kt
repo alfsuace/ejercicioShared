@@ -8,43 +8,29 @@ import com.google.gson.Gson
 import java.util.Date
 
 class OpenedXmlLocalDataSource(private val context: Context) {
-    private val sharedPreferences = context.getSharedPreferences("openedHour.txt", MODE_PRIVATE)
+    private val sharedPreferences = context.getSharedPreferences("openedHourNs.txt", MODE_PRIVATE)
     private val serializer = Gson()
 
-    fun getOpened(): Hour {
-        val isEmpty = sharedPreferences.getString("open", null)==null
-        val hour = Hour(0, Date(System.currentTimeMillis()))
-        return if (isEmpty) {
-            sharedPreferences.edit(){
-                putString(serializer.toJson(hour), null)
-            }
-            hour
-        } else {
-            serializer.fromJson(
-                sharedPreferences.getString("open", "empty"),
-                Hour::class.java
-            )
-        }
+    fun getOpened(): Int {
+        return sharedPreferences.getInt("opened", 1)
     }
 
-    fun saveHour(hour: Hour) {
-        val serialized = serializer.toJson(hour)
-        sharedPreferences.edit() {
-            clear()
-            putString("open", serialized)
+
+    fun setPlusOne() {
+        sharedPreferences.edit(){
+            putInt("opened", getOpened()+1)
             apply()
         }
     }
 
-    fun setPlusOne() {
-        val opened = getOpened().timesOpened + 1
-        val newHour = Hour(opened, getOpened().date)
-        saveHour(newHour)
+    fun setDate() {
+        sharedPreferences.edit(){
+            putLong("date", System.currentTimeMillis())
+            apply()
+        }
     }
 
-    fun setDate() {
-        val atmDate = Date(System.currentTimeMillis())
-        var newHour = Hour(getOpened().timesOpened, atmDate)
-        saveHour(newHour)
+    fun getDate():Long{
+        return sharedPreferences.getLong("date", 0)
     }
 }

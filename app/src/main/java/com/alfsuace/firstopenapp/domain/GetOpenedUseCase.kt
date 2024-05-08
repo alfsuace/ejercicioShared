@@ -2,7 +2,7 @@ package com.alfsuace.firstopenapp.domain
 
 class GetOpenedUseCase(private val openedRepository: OpenedRepository) {
 
-    operator fun invoke():Hour{
+    operator fun invoke():Int{
         return openedRepository.getOpened()
     }
 }

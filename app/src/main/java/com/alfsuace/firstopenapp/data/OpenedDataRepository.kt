@@ -7,11 +7,17 @@ import com.alfsuace.firstopenapp.domain.OpenedRepository
 class OpenedDataRepository(
     private val openedXmlLocalDataSource: OpenedXmlLocalDataSource
 ) : OpenedRepository {
-    override fun getOpened(): Hour {
-        val opened = openedXmlLocalDataSource.getOpened()
+    override fun getOpened(): Int {
+        val open = openedXmlLocalDataSource.getOpened()
         openedXmlLocalDataSource.setPlusOne()
-        openedXmlLocalDataSource.setDate()
-        return opened
+        return open
     }
+
+    override fun getHour(): Long {
+        val date = openedXmlLocalDataSource
+        date.setDate()
+        return date.getDate()
+    }
+
 
 }
