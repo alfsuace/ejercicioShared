@@ -29,12 +29,12 @@ class MainActivity : AppCompatActivity() {
         val openedRepository:OpenedRepository = OpenedDataRepository(
             OpenedXmlLocalDataSource(applicationContext)
         )
-        val isOpen= GetOpenedUseCase(openedRepository).invoke()
-        updateVisibility(isOpen<5)
+        val isOpen = GetOpenedUseCase(openedRepository).invoke()
+        updateVisibility(isOpen.timesOpened<=5)
     }
     private fun updateVisibility(isOpen: Boolean) {
         val visualizerTextView = findViewById<TextView>(R.id.visualizer)
-        visualizerTextView.visibility = if (isOpen) View.VISIBLE else View.GONE
+        visualizerTextView.visibility = if (!isOpen) View.VISIBLE else View.GONE
     }
 
 }
